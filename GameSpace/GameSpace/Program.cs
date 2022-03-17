@@ -1,4 +1,5 @@
 using GameSpace.Data;
+using GameSpace.Infrastrocture;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +10,7 @@ builder.Services.AddDbContext<GameSpaceDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<GameSpaceDbContext>();
 builder.Services.AddControllersWithViews();
 
@@ -17,6 +18,7 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseMigrationsEndPoint();
 }
 else
@@ -25,6 +27,7 @@ else
     app.UseHsts();
 }
 
+app.PreppDb();
 app
     .UseHttpsRedirection()
     .UseStaticFiles()

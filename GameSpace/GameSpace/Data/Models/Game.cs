@@ -1,6 +1,26 @@
-﻿namespace GameSpace.Data.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GameSpace.Data.Models
 {
-    public class GAme
+    public class Game
     {
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        [MaxLength(30)]
+        public string Name { get; set; }
+
+        [Required]
+        public string Description { get; set; }
+
+        [Required]
+        public string ImageUrl { get; set; }
+
+        [Required]
+        public int Year { get; set; }
+
+        public Category Category { get; set; }
+        public int CategoryId { get; set; }
     }
 }

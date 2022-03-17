@@ -1,4 +1,5 @@
-﻿using GameSpace.Models;
+﻿using GameSpace.Data;
+using GameSpace.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,9 +8,11 @@ namespace GameSpace.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly GameSpaceDbContext dbcontext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, GameSpaceDbContext _dbcontext)
         {
+            dbcontext = _dbcontext;
             _logger = logger;
         }
 
