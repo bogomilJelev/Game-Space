@@ -5,20 +5,20 @@ namespace GameSpace.Infrastrocture
 {
     public static class AppBuilderExtL 
     {
-        public static IApplicationBuilder PreppDb (this IApplicationBuilder app)
+        public async static Task<IApplicationBuilder> PreppDb (this IApplicationBuilder app)
         {
             using var scopedService = app.ApplicationServices.CreateScope();
             var data = scopedService.ServiceProvider.GetService<GameSpaceDbContext>();
-            SeedCategory(data);
+            await SeedCategory(data);
+
             return app;
         }
-        private static void SeedCategory(GameSpaceDbContext data)
+        private static async Task SeedCategory(GameSpaceDbContext data)
         {
             if (data.Categories.Any())
-            {
                 return;
-            }
-            data.Categories.AddRange(new []
+
+            await data.Categories.AddRangeAsync(new []
             {
                 new Category { Name = "Horror" },
                 new Category { Name = "Rpg" },
@@ -27,6 +27,8 @@ namespace GameSpace.Infrastrocture
                 new Category { Name = "MMORPG" },
                 new Category { Name = "Strategy " },
             });
+
+            await data.SaveChangesAsync();
         }
     }
 }

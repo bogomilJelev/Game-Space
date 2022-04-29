@@ -1,5 +1,6 @@
 ﻿using GameSpace.Data;
 using GameSpace.Models;
+using GameSpace.Models.Games;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -8,17 +9,32 @@ namespace GameSpace.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly GameSpaceDbContext dbcontext;
+        private readonly GameSpaceDbContext data;
 
-        public HomeController(ILogger<HomeController> logger, GameSpaceDbContext _dbcontext)
+        public HomeController(ILogger<HomeController> logger, GameSpaceDbContext _data)
         {
-            dbcontext = _dbcontext;
+            data = _data;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var games = this.data
+                .Games
+                .OrderByDescending(c=>c.Id)
+                .Select(x => new GameListVIewModel
+                {
+                    Id = x.Id,
+                    ImageUrl = x.ImageUrl,
+                    Description = x.Description,
+                    Name = x.Name,
+                    Year = x.Year,
+                    Category = x.Category.Name
+
+                })
+                .Take(3)
+                .ToList();
+            return View(games);
         }
 
         public IActionResult Privacy()

@@ -1,0 +1,10 @@
+﻿@model GameDetailModel
+@{
+    ViewData["Title"] = "Detail Game";
+}
+<div class="card">
+            <img src="@Model.ImageUrl" class="card-img-top" alt="@Model.Name">
+            <div class="card-body text-center">
+                 <h5 class="card-title">@Model.Name</h5>
+                <h5 class="card-title">@Model.Description</h5>
+            </div>
