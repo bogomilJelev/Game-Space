@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GameSpace.Data.Models
 {
@@ -22,5 +23,9 @@ namespace GameSpace.Data.Models
 
         public Category Category { get; set; }
         public int CategoryId { get; set; }
+
+        public IEnumerable<Rate> Rates { get; set; }
+        
+
     }
 }

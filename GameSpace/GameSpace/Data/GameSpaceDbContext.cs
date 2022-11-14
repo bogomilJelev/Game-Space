@@ -17,9 +17,19 @@ namespace GameSpace.Data
                 .WithMany(e=>e.Games)
                 .HasForeignKey(e=>e.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
+            
+            
+            builder.Entity<Game>()
+                .HasMany(r=>r.Rates)
+                .WithOne(r=>r.Game)
+                .OnDelete(DeleteBehavior.Restrict)
+                ;
+
+
             base.OnModelCreating(builder);
         }
-        public DbSet<Game> Games { get; set; }
+        public DbSet<Rate> Rates { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Game> Games { get; set; }
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameSpace.Migrations
 {
     [DbContext(typeof(GameSpaceDbContext))]
-    [Migration("20220317154222_InitDb")]
-    partial class InitDb
+    [Migration("20220601124146_initmig")]
+    partial class initmig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

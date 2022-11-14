@@ -34,7 +34,7 @@ namespace GameSpace.Controllers
             return Redirect(nameof(All));
 
         }
-        
+        [HttpGet]
         public IActionResult Details(int id)
         {
             var gameid = data.Games.Where(x=>x.Id==id).FirstOrDefault();
@@ -44,8 +44,23 @@ namespace GameSpace.Controllers
                 Name = gameid.Name,
                 Description = gameid.Description,
                 ImageUrl = gameid.ImageUrl,
-            });
+                
+            });;
 
+        }
+
+        [HttpPost]
+        public IActionResult Details(GameDetailModel input)
+        {
+            var game = data.Games.Where(g => g.Name == input.Name).First();
+            Rate rate = new Rate
+            {
+                Number=input.Rate,
+                Game = game,
+            };
+            game.Rates.Append(rate);
+            data.SaveChanges();
+            return View();
         }
 
 
@@ -71,12 +86,11 @@ namespace GameSpace.Controllers
                      Description = x.Description,
                      Name = x.Name,
                      Year = x.Year,
-                     Category = x.Category.Name
-
+                     Category = x.Category.Name,
                  }) ;
-            var totalcars = gamequery.Count();
+            var totalgames = gamequery.Count();
             query.Games = games;
-            query.TotalGames = totalcars;
+            query.TotalGames = totalgames;
             return View(query) ;
           
         }
