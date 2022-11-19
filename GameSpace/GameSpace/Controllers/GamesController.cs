@@ -48,24 +48,6 @@ namespace GameSpace.Controllers
             });;
 
         }
-        
-   //    [HttpPost]
-   //    public IActionResult Details(GameDetailModel input)
-   //    {
-   //        var game = data.Games.Where(g => g.Name == input.Name).First();
-   //        Rate rate = new Rate
-   //        {
-   //            Number=input.Rate,
-   //            Game = game,
-   //        };
-   //        game.Rates.Append(rate);
-   //        data.SaveChanges();
-   //        return View();
-   //    }
-
-
-
-
         public IActionResult All([FromQuery] AllGameQueryModel query)
         {
 
